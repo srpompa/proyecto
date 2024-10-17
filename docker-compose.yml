@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "8080:80"
+  
+  node:
+    build:
+      context: ./node
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URI: mongodb+srv://jorge:jorge@mongodbclase.o74rr.mongodb.net/test
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: jorge
+      MONGO_INITDB_ROOT_PASSWORD: jorge
+    ports:
+      - "27017:27017"
+
